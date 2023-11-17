@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7xr2u1g47hk2"]
+
+[ext_resource type="PackedScene" uid="uid://cm2wah77sxu3l" path="res://Source/player.tscn" id="1_aa4nc"]
+[ext_resource type="PackedScene" uid="uid://igt0mxunlgy5" path="res://obstacle.tscn" id="2_uv0kw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dohg"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fx8ge"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_crvu4"]
+frequency = 0.3791
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wnipp"]
+noise = SubResource("FastNoiseLite_crvu4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32fet"]
+albedo_color = Color(0.341176, 0.341176, 0.341176, 1)
+albedo_texture = SubResource("NoiseTexture2D_wnipp")
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_8dohg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_fx8ge")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fet")
+
+[node name="Player" parent="." instance=ExtResource("1_aa4nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796604, 3.3794, 0.0558615)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 3.10863e-15, 1.49012e-08, -1.29048e-08, 0.5, 0.866025, -7.45058e-09, -0.866026, 0.5, 0, 3.54318, 2.08558)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.798026, -0.307501, -0.518264, 0.596689, 0.523594, 0.608121, 0.0843621, -0.794539, 0.601325, 0, 6.0785, 0)
+shadow_enabled = true
+
+[node name="Obstacles" parent="." instance=ExtResource("2_uv0kw")]
+
+[node name="Obstacles2" parent="." instance=ExtResource("2_uv0kw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00117, 0.5, 0)
