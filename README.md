@@ -3,3 +3,5 @@ Testing sharing a Godot project between multiple users
 
 Steps:
 * [Get Godot 4.1.x](https://godotengine.org/download/windows/)
+* If you don't already have a way of using Github, download [Github Desktop](https://desktop.github.com/)
+* Clone [this repository](https://github.com/psmclancy/GodotSharingTest)
