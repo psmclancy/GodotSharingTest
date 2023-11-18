@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b7xr2u1g47hk2"]
 
 [ext_resource type="PackedScene" uid="uid://cm2wah77sxu3l" path="res://Source/player.tscn" id="1_aa4nc"]
-[ext_resource type="PackedScene" uid="uid://igt0mxunlgy5" path="res://obstacle.tscn" id="2_uv0kw"]
+[ext_resource type="PackedScene" uid="uid://igt0mxunlgy5" path="res://Source/obstacle.tscn" id="2_uv0kw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dohg"]
 size = Vector3(60, 2, 60)
@@ -42,7 +42,7 @@ transform = Transform3D(1, 3.10863e-15, 1.49012e-08, -1.29048e-08, 0.5, 0.866025
 transform = Transform3D(0.798026, -0.307501, -0.518264, 0.596689, 0.523594, 0.608121, 0.0843621, -0.794539, 0.601325, 0, 6.0785, 0)
 shadow_enabled = true
 
-[node name="Obstacles" parent="." instance=ExtResource("2_uv0kw")]
+[node name="Obstacle" parent="." instance=ExtResource("2_uv0kw")]
 
-[node name="Obstacles2" parent="." instance=ExtResource("2_uv0kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00117, 0.5, 0)
+[node name="Obstacle" parent="Obstacle" instance=ExtResource("2_uv0kw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80941, 0.499999, 0.467634)
