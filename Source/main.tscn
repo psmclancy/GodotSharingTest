@@ -67,6 +67,7 @@ autostart = true
 script = ExtResource("4_gcabd")
 
 [node name="ReduceTimer" type="Timer" parent="MobTimer"]
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
