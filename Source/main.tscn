@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7xr2u1g47hk2"]
+[gd_scene load_steps=11 format=3 uid="uid://b7xr2u1g47hk2"]
 
 [ext_resource type="PackedScene" uid="uid://cm2wah77sxu3l" path="res://Source/player.tscn" id="1_aa4nc"]
 [ext_resource type="Script" path="res://Source/main.gd" id="1_w3nfs"]
 [ext_resource type="PackedScene" uid="uid://b7ibfq808mfvv" path="res://Source/mob.tscn" id="3_t0oug"]
+[ext_resource type="Script" path="res://Source/MobTimer.gd" id="4_gcabd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dohg"]
 size = Vector3(60, 2, 60)
@@ -63,5 +64,10 @@ transform = Transform3D(0.809824, 0, 0.586673, 0, 1, 0, -0.586673, 0, 0.809824, 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+script = ExtResource("4_gcabd")
+
+[node name="ReduceTimer" type="Timer" parent="MobTimer"]
+autostart = true
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="MobTimer/ReduceTimer" to="MobTimer" method="_on_reduce_timer_timeout"]
