@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7xr2u1g47hk2"]
+[gd_scene load_steps=10 format=3 uid="uid://b7xr2u1g47hk2"]
 
 [ext_resource type="PackedScene" uid="uid://cm2wah77sxu3l" path="res://Source/player.tscn" id="1_aa4nc"]
-[ext_resource type="PackedScene" uid="uid://igt0mxunlgy5" path="res://Source/obstacle.tscn" id="2_uv0kw"]
+[ext_resource type="Script" path="res://Source/main.gd" id="1_w3nfs"]
+[ext_resource type="PackedScene" uid="uid://b7ibfq808mfvv" path="res://Source/mob.tscn" id="3_t0oug"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dohg"]
 size = Vector3(60, 2, 60)
@@ -19,9 +20,20 @@ noise = SubResource("FastNoiseLite_crvu4")
 albedo_color = Color(0.341176, 0.341176, 0.341176, 1)
 albedo_texture = SubResource("NoiseTexture2D_wnipp")
 
+[sub_resource type="Curve3D" id="Curve3D_kesyb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8.17199, 0, 5.27243, 0, 0, 0, 0, 0, 0, -24.1226, 0, -16.7452, 0, 0, 0, 0, 0, 0, 23.7781, 0, -17.577, 0, 0, 0, 0, 0, 0, 8.36573, 0, 5.37028, 0, 0, 0, 0, 0, 0, -8.17199, 0, 5.27243),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
 [node name="Main" type="Node3D"]
+script = ExtResource("1_w3nfs")
+mob_scene = ExtResource("3_t0oug")
 
 [node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -35,14 +47,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_32fet")
 [node name="Player" parent="." instance=ExtResource("1_aa4nc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796604, 3.3794, 0.0558615)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 3.10863e-15, 1.49012e-08, -1.29048e-08, 0.5, 0.866025, -7.45058e-09, -0.866026, 0.5, 0, 3.54318, 2.08558)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798026, -0.307501, -0.518264, 0.596689, 0.523594, 0.608121, 0.0843621, -0.794539, 0.601325, 0, 6.0785, 0)
 shadow_enabled = true
 
-[node name="Obstacle" parent="." instance=ExtResource("2_uv0kw")]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 3.99681e-15, 1.49012e-08, -1.29048e-08, 0.5, 0.866026, -7.45058e-09, -0.866026, 0.5, 0.0796604, 8.27661, 3.58882)
 
-[node name="Obstacle" parent="Obstacle" instance=ExtResource("2_uv0kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80941, 0.499999, 0.467634)
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_kesyb")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(0.809824, 0, 0.586673, 0, 1, 0, -0.586673, 0, 0.809824, -8.17199, 0, 5.27243)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
