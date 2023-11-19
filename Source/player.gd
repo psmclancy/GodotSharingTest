@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var speed = 8.0
 @export var jump_velocity = 8.5
 
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -16,6 +17,7 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
+		$Sounds/JumpSound.play()
 		
 	for index in range(get_slide_collision_count()):
 		var collision = get_slide_collision(index)
@@ -27,6 +29,7 @@ func _physics_process(delta):
 			var mob = collision.get_collider()
 			if Vector3.UP.dot(collision.get_normal()) >0.1:
 				mob.squash()
+				$Sounds/SquashSound.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
