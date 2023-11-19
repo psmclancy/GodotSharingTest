@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cm2wah77sxu3l"]
 
 [ext_resource type="Script" path="res://Source/player.gd" id="1_nyxql"]
-[ext_resource type="AudioStream" uid="uid://cbhqqq7vnpn20" path="res://Content/Audio/jump.wav" id="2_3x0m6"]
-[ext_resource type="AudioStream" uid="uid://7mkv20fknvsm" path="res://Content/Audio/squash.wav" id="2_6bpqf"]
+[ext_resource type="AudioStream" uid="uid://cfpdqape5cng1" path="res://Content/Audio/jump.wav" id="2_3x0m6"]
+[ext_resource type="AudioStream" uid="uid://bi815sx3ow2g8" path="res://Content/Audio/squash.wav" id="2_6bpqf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vkvpf"]
 
@@ -28,8 +28,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g66d0")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("2_3x0m6")
-volume_db = -3.279
-pitch_scale = 0.85
+pitch_scale = 0.87
 
 [node name="SquashSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("2_6bpqf")
